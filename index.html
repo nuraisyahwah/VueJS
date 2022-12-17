@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Vue</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{ title }}</h2>
+        <p>{{ dataMahasiswa }}</p>
+        <!-- <p>{{ dataMahasiswa }}</P>-->
+        <ul v-for="row in dataMahasiswa">
+            <li>{{ row.nama }}</li>
+        </ul>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Judul</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="data in mahasiswa">
+                    <td>{{ data.nama }}</td>
+                    <td>{{ data.judul }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://docs.vuejs.id/js/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                title: "API Data Mahasiswa",
+                description: "Data Api dideploy di vercel.app",
+                dataMahasiswa: null
+            },
+            mounted() {
+                axios
+                    .get("https://if3b-zarazzar.vercel.app/ternak")
+                    .then(Response => {
+                        console.log(Response);
+                        this.dataMahasiswa = Response.data
+                    })
+            }
+        });
+    </script>
+</body>
+
+</html>
